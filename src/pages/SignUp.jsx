@@ -7,10 +7,11 @@ import {db} from "../firebase"
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { toast} from "react-toastify";
+
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    mame: "",
+    name: "",
     email: "",
     password: ""
   });
