@@ -1,9 +1,10 @@
 import { getAuth, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db } from '../firebase';
+import { FcHome } from "react-icons/fc";
 
 export default function Profile() {
   const auth = getAuth();
@@ -57,12 +58,17 @@ export default function Profile() {
           onChange={onChange}
             className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${changDetail && "bg-red-200 focus:bg-red-200"}`} />
           <input type="email" id="email" value={email} disabled className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out" />
-          <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
+          <div className="mb-6 flex justify-between whitespace-nowrap text-sm sm:text-lg">
             <p className='flex items-center'>Do you want to chang your name?<span onClick={() => { changDetail && onSubmit(); setChangDetail((preStatus)=> !preStatus);}} className='text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer'>{changDetail ? "Apply change" : "Edit"}</span></p>
             <p onClick={onLogout} className='text-blue-600 hover:text-blue-700 transition ease-in-out duration-200 ml-1 cursor-pointer'>Sign Out?</p>
           </div>
 
         </form> 
+        <button type="submit" className="w-full items-center bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800">
+          <Link to="/create-listing" className="flex justify-center items-center">
+          <FcHome className="text-3xl mr-2 bg-red-200 rounded-full p-1 border-2"/>sell or rent you house
+          </Link>
+        </button>
       </div>
     </section>
       
