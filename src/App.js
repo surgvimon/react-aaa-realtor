@@ -17,7 +17,7 @@ function App() {
       <Router>
         <Header/>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Home />} />
           <Route path="/Sign-up" element={ <SignUp />} />
           <Route path="/Sign-in" element={ <SignIn />} />
           <Route path="/Offers" element={ <Offers />} />
@@ -26,7 +26,10 @@ function App() {
           </Route>
          
           <Route path="/forgot-password" element={ <ForgotPassword /> } />
-          <Route path="/create-listing" element={  <CreateListing /> } />
+          <Route path="/create-listing" element={<PrivateRoute/>} >
+            <Route path="/create-listing" element={  <CreateListing /> } />
+          </Route>
+          
         </Routes>
       </Router>
       <ToastContainer
