@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwipperCore, { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
 import 'swiper/css/bundle';
-import {FaShare} from "react-icons/fa";
+import {FaShare,FaMapMarkerAlt, FaBed, FaBath, FaParking,FaChair} from "react-icons/fa";
 
 export default function Listing() {
     const param = useParams();
@@ -66,7 +66,54 @@ export default function Listing() {
             >
                     <FaShare className="text-lg text-slate-600"/>
             </div>
-            {shareLinkCopied && <p className="fixed top-[23%] right-[5%] z-10 bg-white text-black py-1 px-3 rounded">Link Copied</p>}
+            <div className="flex flex-col max-w-6xl md:flex-row m-4 lg:mx-auto bg-white rounded-lg shadow-lg p-4 md:space-x-5 overflow-x-hidden">
+                <div className="w-full">
+                    <p className="text-2xl font-bold mb-3 text-blue-900">
+                        {listing.name} - ฿ {listing.offer ? listing.discountedPrice 
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")  
+                    : listing.regularPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")  
+                    }</p>
+                    <p className="flex justify-start items-center mt-6 mb-3 text-semibold">
+                        <FaMapMarkerAlt className="text-green-700 mr-1"/>
+                        {listing.address}
+                    </p>
+                    <div className="flex justify-start items-center space-x-4 w-[75%]">
+                        <p className="w-full max-w-[200px] bg-red-800 p-1 rounded text-white text-center">
+                            {listing.type === "rent" ? "Rent" : "Sale"}
+                        </p>
+                        { listing.offer && (
+                            <p className="w-full max-w-[200px] bg-green-800 p-1 rounded text-white text-center">
+                                ${+listing.regularPrice - +listing.discountedPrice}
+                            </p>
+                        )}
+                    </div>
+                    <p className="mt-3 mb-3">
+                        <span>Description - </span>
+                        <span>{listing.description}</span>
+                    </p>
+                    <ul className="flex space-x-6">
+                        <li className="flex items-center whitespace-nowrap">
+                            <FaBed className="text-lg mr-1"/>{+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
+                        </li>
+                        <li className="flex items-center whitespace-nowrap">
+                            <FaBath className="text-lg mr-1"/>{+listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}
+                        </li>
+                        <li className="flex items-center whitespace-nowrap">
+                            <FaParking className="text-lg mr-1"/>{+listing.parking  ? "Parking spot" : "No parking"}
+                        </li>
+                        <li className="flex items-center whitespace-nowrap">
+                            <FaChair className="text-lg mr-1"/>{+listing.furnished  ? "Parking spot" : "Not furnished"}
+                        </li>
+                    </ul>
+                </div>
+                <div className="w-full bg-blue-300 h-[300px]">
+                </div>
+            </div>
+
+            {shareLinkCopied && <p className="fixed top-[23%] right-[5%] z-10 bg-white text-black py-1 px-3 rounded overflow-x-hidden">Link Copied</p>}
         </main>
     )
 }
