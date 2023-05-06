@@ -1,9 +1,10 @@
 import React from 'react'
+import Slider from '../components/Slider'
 
 export default function Home() {
   return (
-    <div>
-      <h1 className='text-red-400'>hello!</h1>
-    </div>
+    <main>
+      <Slider />
+    </main>
   )
 }
