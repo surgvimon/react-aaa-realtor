@@ -7,12 +7,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwipperCore, { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
 import 'swiper/css/bundle';
 import {FaShare,FaMapMarkerAlt, FaBed, FaBath, FaParking,FaChair} from "react-icons/fa";
+import {getAuth} from "firebase/auth";
+import Contact from '../components/Contact';
 
 export default function Listing() {
     const param = useParams();
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(true);
     const [shareLinkCopied, setShareLinkCopied] = useState(false);
+    const [contactLandLoad, setContactLandLoad] = useState(false);
+    const auth = getAuth();
 
     SwipperCore.use(Autoplay, Navigation, Pagination);
 
@@ -108,6 +112,10 @@ export default function Listing() {
                             <FaChair className="text-lg mr-1"/>{+listing.furnished  ? "Parking spot" : "Not furnished"}
                         </li>
                     </ul>
+                    {listing.userRef !== auth.currentUser?.uid && !contactLandLoad && (
+                        <button onClick={()=> setContactLandLoad(true)} className="w-full px-7 py-3 bg-blue-600 text-center rounded shadow-md hover:bg-blue-700 hover:shadow-lg mt-6 text-white uppercase font-sm transition duration-150 ease-in-out">Contact Landlord</button>
+                    )}
+                    {contactLandLoad && <Contact userRef={listing.userRef} listing={listing} />}
                 </div>
                 <div className="w-full bg-blue-300 h-[300px]">
                 </div>
