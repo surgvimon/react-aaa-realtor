@@ -9,6 +9,7 @@ import 'swiper/css/bundle';
 import {FaShare,FaMapMarkerAlt, FaBed, FaBath, FaParking,FaChair} from "react-icons/fa";
 import {getAuth} from "firebase/auth";
 import Contact from '../components/Contact';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 export default function Listing() {
     const param = useParams();
@@ -17,6 +18,7 @@ export default function Listing() {
     const [shareLinkCopied, setShareLinkCopied] = useState(false);
     const [contactLandLoad, setContactLandLoad] = useState(false);
     const auth = getAuth();
+    const position = [51.505, -0.09]
 
     SwipperCore.use(Autoplay, Navigation, Pagination);
 
@@ -117,7 +119,21 @@ export default function Listing() {
                     )}
                     {contactLandLoad && <Contact userRef={listing.userRef} listing={listing} />}
                 </div>
-                <div className="w-full bg-blue-300 h-[300px]">
+                <div className="w-full h-[200px] md:h-[300px] mt-6 md:mt-0">
+                    <MapContainer 
+                    center={[listing.geolocation.lat, listing.geolocation.lng]} zoom={13} scrollWheelZoom={false}
+                    zoom={13}
+                    scrollWheelZoom={false}
+                    style={{ height: "100%", width: "100%" }}
+                    >
+                        <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[listing.geolocation.lat, listing.geolocation.lng]}>
+                        <Popup>{listing.address}</Popup>
+                        </Marker>
+                    </MapContainer>
                 </div>
             </div>
 
