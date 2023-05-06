@@ -42,8 +42,9 @@ export default function Profile() {
         toast.success("Profile detail update.")
       }
       
-    } catch (error) {
-      toast.error("Cloud not update the profile detail.")
+    } catch(error) {
+      console.log(error);
+      // toast.error("Cloud not update the profile detail.")
     }
 
   }
