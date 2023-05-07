@@ -146,7 +146,7 @@ export default function Home() {
               <h2 className="text-2xl px-3 mt-6 text-semibold">Places for sale</h2>
               <Link to="/category/sale">
                 <p className="px-3 text-sm text-blue-600 hover:text-blue-800 transition duration-150 ease-in-out">
-                Show more places for rent
+                Show more places for sale
                 </p>
               </Link>
               <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
